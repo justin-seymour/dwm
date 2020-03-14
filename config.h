@@ -1,5 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
+/* Including media keys */
+#include <X11/XF86keysym.h>
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int gappx     = 5;        /* gaps between windows */
@@ -64,6 +67,15 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
+/* Arrays for media keys */
+static const char *upvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%", NULL};
+static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%", NULL};
+static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute", "0", "toggle", NULL};
+
+/* Brightness commands */
+static const char *upbright[] = { "/usr/bin/xbacklight", "-inc", "20", NULL };
+static const char *downbright[] = { "/usr/bin/xbacklight", "-dec", "20", NULL };
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -101,8 +113,18 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+
 	{ MODKEY|ShiftMask,             XK_F10,    quit,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          SHCMD("~/bin/exit_prompt.sh") },
+    
+    /* Media key binds */
+    { 0,                            XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
+    { 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = upvol } },
+    { 0,                            XF86XK_AudioMute, spawn, {.v = mutevol } },
+
+    /* Brightness keys */
+    {0,                             XF86XK_MonBrightnessUp, spawn, {.v = upbright } },
+    {0,                             XF86XK_MonBrightnessDown, spawn, {.v = downbright } },
 };
 
 /* button definitions */

@@ -5,7 +5,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 5;        /* gaps between windows */
+static const unsigned int gappx     = 6;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -13,8 +13,8 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "monospace:size=11" };
+static const char dmenufont[]       = "monospace:size=11";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -68,9 +68,12 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 
 /* Arrays for media keys */
-static const char *upvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%", NULL};
-static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%", NULL};
-static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute", "0", "toggle", NULL};
+//static const char *upvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%", "&&", "~/bin/refreshbar.sh", NULL };
+//static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%", "&&", "~/bin/refreshbar.sh", NULL };
+//static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute", "0", "toggle", "&&", "~/bin/refreshbar.sh", NULL };
+//static const char *playaud[] = { "playerctl", "play-pause", "&&", "~/bin/refreshbar.sh", NULL};
+//static const char *nextaud[] = { "playerctl", "next", "&&", "~/bin/refreshbar.sh", NULL};
+//static const char *prevaud[] = { "playerctl", "previous", "&&", "~/bin/refreshbar.sh", NULL};
 
 /* Brightness commands */
 static const char *upbright[] = { "/usr/bin/xbacklight", "-inc", "20", NULL };
@@ -118,9 +121,19 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          SHCMD("~/bin/exit_prompt.sh") },
     
     /* Media key binds */
-    { 0,                            XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
-    { 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = upvol } },
-    { 0,                            XF86XK_AudioMute, spawn, {.v = mutevol } },
+    //{ 0,                            XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
+    //{ 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = upvol } },
+    //{ 0,                            XF86XK_AudioMute, spawn, {.v = mutevol } },
+    //{ 0,                            XF86XK_AudioPlay, spawn, {.v = playaud } },
+    //{ 0,                            XF86XK_AudioNext, spawn, {.v = nextaud } },
+    //{ 0,                            XF86XK_AudioPrev, spawn, {.v = prevaud } },
+
+    { 0,                            XF86XK_AudioLowerVolume, spawn, SHCMD("pactl set-sink-volume 0 +5% ; ~/bin/refreshbar.sh") },
+    { 0,                            XF86XK_AudioRaiseVolume, spawn, SHCMD("pactl set-sink-volume 0 -5% ; ~/bin/refreshbar.sh") },
+    { 0,                            XF86XK_AudioMute, spawn, SHCMD("pactl set-sink-mute 0 toggle ; ~/bin/refreshbar.sh") },
+    { 0,                            XF86XK_AudioPlay, spawn, SHCMD("playerctl play-pause ; ~/bin/refreshbar.sh") },
+    { 0,                            XF86XK_AudioNext, spawn, SHCMD("playerctl next ; ~/bin/refreshbar.sh") },
+    { 0,                            XF86XK_AudioPrev, spawn, SHCMD("playerctl prev ; ~/bin/refreshbar.sh") },
 
     /* Brightness keys */
     {0,                             XF86XK_MonBrightnessUp, spawn, {.v = upbright } },

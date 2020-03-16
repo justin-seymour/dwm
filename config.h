@@ -128,16 +128,18 @@ static Key keys[] = {
     //{ 0,                            XF86XK_AudioNext, spawn, {.v = nextaud } },
     //{ 0,                            XF86XK_AudioPrev, spawn, {.v = prevaud } },
 
-    { 0,                            XF86XK_AudioLowerVolume, spawn, SHCMD("pactl set-sink-volume 0 +5% ; ~/bin/refreshbar.sh") },
-    { 0,                            XF86XK_AudioRaiseVolume, spawn, SHCMD("pactl set-sink-volume 0 -5% ; ~/bin/refreshbar.sh") },
+    { 0,                            XF86XK_AudioLowerVolume, spawn, SHCMD("pactl set-sink-volume 0 -5% ; ~/bin/refreshbar.sh") },
+    { 0,                            XF86XK_AudioRaiseVolume, spawn, SHCMD("pactl set-sink-volume 0 +5% ; ~/bin/refreshbar.sh") },
     { 0,                            XF86XK_AudioMute, spawn, SHCMD("pactl set-sink-mute 0 toggle ; ~/bin/refreshbar.sh") },
     { 0,                            XF86XK_AudioPlay, spawn, SHCMD("playerctl play-pause ; ~/bin/refreshbar.sh") },
     { 0,                            XF86XK_AudioNext, spawn, SHCMD("playerctl next ; ~/bin/refreshbar.sh") },
-    { 0,                            XF86XK_AudioPrev, spawn, SHCMD("playerctl prev ; ~/bin/refreshbar.sh") },
+    { 0,                            XF86XK_AudioPrev, spawn, SHCMD("playerctl previous ; ~/bin/refreshbar.sh") },
 
     /* Brightness keys */
     {0,                             XF86XK_MonBrightnessUp, spawn, {.v = upbright } },
     {0,                             XF86XK_MonBrightnessDown, spawn, {.v = downbright } },
+
+    {0,                             XK_Caps_Lock, spawn, SHCMD("~/bin/caps.sh") },
 };
 
 /* button definitions */

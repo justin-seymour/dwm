@@ -13,8 +13,8 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=11" };
-static const char dmenufont[]       = "monospace:size=11";
+static const char *fonts[]          = { "monospace:size=9" };
+static const char dmenufont[]       = "monospace:size=9";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -119,7 +119,9 @@ static Key keys[] = {
 
 	{ MODKEY|ShiftMask,             XK_F10,    quit,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          SHCMD("~/bin/exit_prompt.sh") },
-    
+	{ MODKEY,                       XK_F1,     spawn,          SHCMD("scrot -e 'mv $f ~/Pictures/screenshots'") },
+	{ MODKEY,                       XK_F2,     spawn,          SHCMD("scrot -u -e 'mv $f ~/Pictures/screenshots'") },
+   
     /* Media key binds */
     //{ 0,                            XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
     //{ 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = upvol } },
@@ -139,7 +141,7 @@ static Key keys[] = {
     {0,                             XF86XK_MonBrightnessUp, spawn, {.v = upbright } },
     {0,                             XF86XK_MonBrightnessDown, spawn, {.v = downbright } },
 
-    {0,                             XK_Caps_Lock, spawn, SHCMD("~/bin/caps.sh") },
+    {0,                             XK_Caps_Lock, spawn, SHCMD("~/bin/refreshbar.sh") },
 };
 
 /* button definitions */

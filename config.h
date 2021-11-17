@@ -36,7 +36,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	//{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
 /* layout(s) */
@@ -65,15 +65,15 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "alacritty", NULL };
 
 /* Arrays for media keys */
-//static const char *upvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%", "&&", "~/bin/refreshbar.sh", NULL };
-//static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%", "&&", "~/bin/refreshbar.sh", NULL };
-//static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute", "0", "toggle", "&&", "~/bin/refreshbar.sh", NULL };
-//static const char *playaud[] = { "playerctl", "play-pause", "&&", "~/bin/refreshbar.sh", NULL};
-//static const char *nextaud[] = { "playerctl", "next", "&&", "~/bin/refreshbar.sh", NULL};
-//static const char *prevaud[] = { "playerctl", "previous", "&&", "~/bin/refreshbar.sh", NULL};
+//static const char *upvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%", NULL };
+//static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%", NULL };
+//static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute", "0", "toggle", NULL };
+//static const char *playaud[] = { "playerctl", "play-pause", NULL};
+//static const char *nextaud[] = { "playerctl", "next", NULL};
+//static const char *prevaud[] = { "playerctl", "previous", NULL};
 
 /* Brightness commands */
 static const char *upbright[] = { "/usr/bin/xbacklight", "-inc", "20", NULL };
@@ -130,18 +130,18 @@ static Key keys[] = {
     //{ 0,                            XF86XK_AudioNext, spawn, {.v = nextaud } },
     //{ 0,                            XF86XK_AudioPrev, spawn, {.v = prevaud } },
 
-    { 0,                            XF86XK_AudioLowerVolume, spawn, SHCMD("pactl set-sink-volume 0 -5% ; ~/bin/refreshbar.sh") },
-    { 0,                            XF86XK_AudioRaiseVolume, spawn, SHCMD("pactl set-sink-volume 0 +5% ; ~/bin/refreshbar.sh") },
-    { 0,                            XF86XK_AudioMute, spawn, SHCMD("pactl set-sink-mute 0 toggle ; ~/bin/refreshbar.sh") },
-    { 0,                            XF86XK_AudioPlay, spawn, SHCMD("playerctl play-pause ; ~/bin/refreshbar.sh") },
-    { 0,                            XF86XK_AudioNext, spawn, SHCMD("playerctl next ; ~/bin/refreshbar.sh") },
-    { 0,                            XF86XK_AudioPrev, spawn, SHCMD("playerctl previous ; ~/bin/refreshbar.sh") },
+    { 0,                            XF86XK_AudioLowerVolume, spawn, SHCMD("pactl set-sink-volume 0 -5%") },
+    { 0,                            XF86XK_AudioRaiseVolume, spawn, SHCMD("pactl set-sink-volume 0 +5%") },
+    { 0,                            XF86XK_AudioMute, spawn, SHCMD("pactl set-sink-mute 0 toggle") },
+    { 0,                            XF86XK_AudioPlay, spawn, SHCMD("playerctl play-pause") },
+    { 0,                            XF86XK_AudioNext, spawn, SHCMD("playerctl next") },
+    { 0,                            XF86XK_AudioPrev, spawn, SHCMD("playerctl previous") },
 
     /* Brightness keys */
     {0,                             XF86XK_MonBrightnessUp, spawn, {.v = upbright } },
     {0,                             XF86XK_MonBrightnessDown, spawn, {.v = downbright } },
 
-    {0,                             XK_Caps_Lock, spawn, SHCMD("~/bin/refreshbar.sh") },
+    //{0,                             XK_Caps_Lock, spawn, SHCMD("~/bin/refreshbar.sh") },
 };
 
 /* button definitions */

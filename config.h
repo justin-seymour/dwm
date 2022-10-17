@@ -76,8 +76,10 @@ static const char *termcmd[]  = { "alacritty", NULL };
 //static const char *prevaud[] = { "playerctl", "previous", NULL};
 
 /* Brightness commands */
-static const char *upbright[] = { "/usr/bin/xbacklight", "-inc", "20", NULL };
-static const char *downbright[] = { "/usr/bin/xbacklight", "-dec", "20", NULL };
+/* static const char *upbright[] = { "/usr/bin/xbacklight", "-inc", "20", NULL }; */
+/* static const char *downbright[] = { "/usr/bin/xbacklight", "-dec", "20", NULL }; */
+static const char *upbright[] = { "/usr/bin/light", "-A", "10", NULL };
+static const char *downbright[] = { "/usr/bin/light", "-U", "10", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -119,8 +121,8 @@ static Key keys[] = {
 
 	{ MODKEY|ShiftMask,             XK_F10,    quit,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          SHCMD("~/bin/exit_prompt.sh") },
-	{ MODKEY,                       XK_F1,     spawn,          SHCMD("scrot -e 'mv $f ~/Pictures/screenshots'") },
-	{ MODKEY,                       XK_F2,     spawn,          SHCMD("scrot -u -e 'mv $f ~/Pictures/screenshots'") },
+	/* { MODKEY,                       XK_F1,     spawn,          SHCMD("scrot -e 'mv $f ~/Pictures/screenshots'") }, */
+	/* { MODKEY,                       XK_F2,     spawn,          SHCMD("scrot -u -e 'mv $f ~/Pictures/screenshots'") }, */
    
     /* Media key binds */
     //{ 0,                            XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
@@ -136,6 +138,7 @@ static Key keys[] = {
     { 0,                            XF86XK_AudioPlay, spawn, SHCMD("playerctl play-pause") },
     { 0,                            XF86XK_AudioNext, spawn, SHCMD("playerctl next") },
     { 0,                            XF86XK_AudioPrev, spawn, SHCMD("playerctl previous") },
+    { 0,                            XF86XK_AudioMicMute, spawn, SHCMD("amixer set Capture toggle") },
 
     /* Brightness keys */
     {0,                             XF86XK_MonBrightnessUp, spawn, {.v = upbright } },
